@@ -13,12 +13,12 @@ plt.figure()
 plt.subplot(211)
 plt.xlabel('Sample')
 plt.ylabel('Magnitude')
-plt.stem(x,np.abs(y))
+plt.stem(x,np.real(y))
 
 plt.subplot(212)
 plt.xlabel('Sample')
 plt.ylabel('Phase')
-plt.stem(x,np.angle(y))
+plt.stem(x,np.imag(y))
 plt.show()
 
 
