@@ -17,6 +17,8 @@ def convolution(lowerLimit,upperLimit,x,h):
 
 import matplotlib.pyplot as plt
 import numpy as np
+from  scipy import signal
+
 lowerLimit=-8
 upperLimit=8
 
@@ -25,23 +27,29 @@ x = step(lowerLimit,upperLimit,-1)-step(lowerLimit,upperLimit,2)
 h = step(lowerLimit,upperLimit,0)-step(lowerLimit,upperLimit,4)
 
 y = convolution(lowerLimit,upperLimit,x,h)
+y1 = signal.convolve(x,h)
 
 plt.figure()
-plt.subplot(311)
+plt.subplot(411)
 plt.xlabel('n')
 plt.ylabel('x[n]')
 plt.stem(n,x)
 
-plt.subplot(312)
+plt.subplot(412)
 plt.xlabel('n')
 plt.ylabel('h[n]')
 plt.stem(n,h)
 
 
-plt.subplot(313)
+plt.subplot(413)
 plt.xlabel('n')
 plt.ylabel('x[n]*h[n]')
 plt.stem(n,y)
+
+plt.subplot(414)
+plt.xlabel('n')
+plt.ylabel('x[n]*h[n] - scipy')
+plt.stem(y1)
 plt.show()
 
 
