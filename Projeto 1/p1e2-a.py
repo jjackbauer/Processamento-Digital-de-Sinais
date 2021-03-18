@@ -7,11 +7,18 @@ def step(lowerLimit, upperLimit,impulsePosition):
     return np.append(np.append(begin,[1]),end)
 
 def convolution(lowerLimit,upperLimit,x,h):
-    response = np.zeros(upperLimit-lowerLimit+1)
+    size = upperLimit-lowerLimit
+    response = np.zeros(2*size+1)
+    anexx = np.zeros(int(size/2))
+    xCopy = x
+    hCopy = h
 
-    for n in range(lowerLimit,upperLimit+1):
-        for k in range(lowerLimit,upperLimit+1):
-            response[n] += x[k]*h[n-k]
+    xCopy= np.append(np.append(anexx,xCopy),anexx)
+    hCopy= np.append(np.append(anexx,hCopy),anexx)
+
+    for n in range(0,size):
+        for k in range(0,2*size):
+            response[n+size] += xCopy[k]*hCopy[n-k]
 
     return response
 
@@ -44,13 +51,15 @@ plt.stem(n,h)
 plt.subplot(413)
 plt.xlabel('n')
 plt.ylabel('x[n]*h[n]')
-plt.stem(n,y)
+n1 = np.arange(-y.size/2,y.size/2,1)
+plt.stem(n1,y)
 
 
 plt.subplot(414)
 plt.xlabel('n')
 plt.ylabel('x[n]*h[n] - scipy')
-plt.stem(y1)
+n2 = np.arange(-(y1.size/2),y1.size/2,1)
+plt.stem(n2,y1)
 plt.show()
 
 
